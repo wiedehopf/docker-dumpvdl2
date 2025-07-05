@@ -19,7 +19,10 @@ if [ -n "${SOAPYSDR}" ]; then
         VDLM_CMD+=("--device-settings" "$SOAPY_DEVICE_SETTINGS")
     fi
 elif [ -n "${SERIAL}" ]; then
-	VDLM_CMD+=("--soapysdr" "driver=rtlsdr,serial=$SERIAL")
+	VDLM_CMD+=("--rtlsdr" "$SERIAL")
+    if chk_enabled "${BIASTEE}"; then
+        VDLM_CMD+=("--bias" "1")
+    fi
 fi
 
 if [ -n "$CENTER_FREQ" ]; then
